@@ -1,0 +1,91 @@
+ISSUES WITH SYNCHRONIZED KEYWORD :
+----------------------------------
+1. No flexibility to TRY for a lock without waiting.
+2. There is no way to specify maximum waiting time for a Thread to get lock so that Thread will 
+   wait until getting the lock which may create performance problem which may cause deadlock.
+3. If a Thread releases lock then we cannot control which waiting Thread will get the lock
+4. No API to list out all waiting Threads for a lock.
+5. Synchronized keyword is applicable at the block/method level. Its not applicable across multiple methods.
+
+To overcome these issues, java.util.concurrent.locks package was introduced in 1.5 version. 
+This package provides several enhancements to programmer to provide more control on concurrency.
+
+LOCK (I)
+--------
+Lock object is similar to implicit lock acquired by a Thread to execute a synchronized method/block.
+Lock implementation provide more extensive operations than traditional implicit locks.
+
+Methods of LOCK(I)
+------------------
+void lock()       - We can use this method to acquire a lock.If lock is available, then the current thread will get the lock. If 
+			  		the lock is unavailable, then it will wait until it acquires lock. Its exactly same behavior of traditional synchronized keyword.
+			  		
+boolean tryLock() - To acquire lock without waiting. If lock is available, then the current thread will get the lock and returns true.
+					If the lock is unavailable, then this method returns false and continues its execution without waiting.
+					In this case, the current thread never enters into waiting state.
+					if(l.tryLock()){
+						/* Perform safe operations */
+					}else{
+						/* Perform alternative operations */
+					}
+					
+boolean tryLock(long time, TimeUnit unit) - If lock is available, then the Thread will get the lock and continue its execution. If the lock is unavailable,
+											then the Thread will wait until the specified amount of time. Even after waiting if the lock is unavailable, 
+											then the Thread will continue its execution.
+											TimeUnit = ENUM inside java.util.concurrent package. It has NANOSECONDS, MICROSECONDS, MILLISECONDS, SECONDS, HOURS, DAY
+											
+											if(l.tryLock(1000, TimeUnit.MILLISECONDS)){
+												/* Perform safe operations */
+											}
+											
+void lockInterruptibly() - Acquires the lock if its available, and returns immediately. If the lock is unavailable, then it will wait.
+							While waiting, if the Thread is interrupted, then Thread won't get the lock.
+							
+void unLock() - Releases the acquired lock. To call this method, CurrentThread should be the owner of the Lock. Otherwise it will throw RuntimeException saying 'IllegalMonitorStateException'.
+
+
+REENTRANTLOCK (c)
+-----------------
+ReentrantLock is the implementation class of Lock(I). Its the direct child class of Object class.  	
+REENTRANT means a Thread can acquire Lock multiple times without any issue (even without releasing locks). Internally ReentrantLock increments Thread's personal count by 1 everytime we call Lock method and 
+decrements count value whenever Thread calls unLock method. Lock will be released only when the count reaches '0'.
+
+constructors:
+*************
+
+1. ReentrantLock l = new ReentrantLock(); - Creates an instance of ReentrantLock. 
+2. ReentrantLock l = new ReentrantLock(boolean fairness); - By default fairness is 'false'. If set to true using this constructor, then the longest waiting thread will acquire 
+															the lock (if available). ThreadScheduler will follow FCFS (First Come First Serve).
+															If fairness is false, we will not know which waiting thread will get a chance.
+Which of the following declaration are equal:
+
+1. ReentrantLock l = new ReentrantLock();
+2. ReentrantLock l = new ReentrantLock(true);
+3. ReentrantLock l = new ReentrantLock(false);
+4. All the above
+
+In the above declaration 1 & 3 are equal.
+
+METHODS IN REENTRANTLOCK:
+-------------------------
+	1. void lock() 
+	2. boolean tryLock()
+	3. boolean tryLock(long time, TimeUnit unit)
+	4. void lockInterruptibly()
+	5. void unLock()
+	
+	6. int getHoldCount() - Returns the number of lock holds on this object by current thread.
+	7. boolean isHeldByCurrentThread() - Returns 'true' if lock is held by the current thread. 'false' if current thread doesnot have the lock
+	8. int getQueueLength() - Returns number of threads waiting for the lock.
+	9. Collection getQueuedThreads() - Returns a collection of threads that are waiting to get the lock.
+	10. boolean hasQueuedThreads() - Returns 'true' if any thread is waiting to get the lock.
+	11. boolean isLocked() - Returns 'true' if the lock is acquired by some thread.
+	12. boolean isFair() - Checks whether fairness is set to true/false.
+	13. Thread getOwner() - Returns the owner of the lock. 
+
+
+											
+											
+
+											
+					

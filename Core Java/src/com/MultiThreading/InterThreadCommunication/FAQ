@@ -1,0 +1,72 @@
+Two threads can communicate with each other by using wait(), notify() and notifyAll() methods.
+
+The thread that is expecting an update is responsible to call wait() method. Then immediately the thread will enter into waiting state.
+
+The thread that is responsible to perform the update, after performing the update, 
+ it is responsible to call notify() method. Then waiting thread will get the notification and continue its execution with those updated items.
+
+wait() notify() notifyAll() methods are present in object class but not in Thread class because Thread can call these methods on any java object.
+obj.wait() not t.wait().
+
+To call wait() notify() notifyAll() methods on any object, Thread should be the owner of the object 
+ (i.e) the Thread should have the lock of the object. 
+ (i.e) the Thread should be inside synchronized area.
+ Hence we can call wait() notify() notifyAll() methods only from synchronized area.Otherwise we will get runtime exception 'IllegalMonitorStateException'
+ 
+If a thread calls wait() method on any object, it IMMEDIATELY releases the LOCK OF THAT PARTICULAR OBJECT and enters into waiting state.
+ 
+If a thread calls notify() method on any object, it releases the lock of that object but may not immediately.
+ 
+Except wait, notify and notifyAll, there is no other method where thread releases the lock. yield(), join(), sleep() methods does not release the lock.
+
+Which of the following is valid?
+- If a thread calls wait method, immediately it will enter into waiting state without releasing any lock. - INVALID 
+- If a thread calls wait method, it releases the lock of that object but may not immediately - INVALID
+- If a thread calls wait method on any object, it releases all locks acquired by that thread and immediately enters into waiting state - INVALID
+- If a thread calls wait method on any object, it immediately releases the lock of that particular object and enters into waiting state - VALID
+- If a thread calls notify method on any object, it immediately releases the lock of that particular object - INVALID
+- If a thread calls notify method on any object, it releases the lock of that object but may not immediately - VALID
+
+---------------------------------------------------------
+METHODS IN OBJECT CLASS FOR WAIT() NOTIFY() & NOTIFYALL()
+---------------------------------------------------------
+
+public final void wait() throws InterruptedException
+public final native void wait(long milliseconds) throws InterruptedException
+public final native void wait(long milliseconds, int nanoseconds) throws InterruptedException
+
+public final native void notify()
+public final native void notifyAll()
+
+NOTE - Every wait method throws IE which is checkedException. Hence whenever we are using wait() method, we should handle IE exception
+
+--------------------------
+PRODUCER CONSUMER PROBLEM
+--------------------------
+
+Producer Thread is responsible to produce items to the queue. 
+Consumer Thread is responsible to consume items from the queue. If queue is empty then consumer thread will call wait() method and enter into waiting state.
+After producing items to the queue, Producer thread is responsible to call notify() method. 
+Then waiting consumer will get the notification and continue its execution with updated items in the queue.  
+
+-------------------------------------------
+DIFFERENCE BETWEEN notify() AND notifyAll()
+------------------------------------------- 
+
+We can use notify to give notification to one waiting thread
+If multiple threads are waiting, then only one thread will be notified and the remaining threads have to wait indefinitely.
+We cannot predict which thread will be notified. It depends on JVM.
+
+notifyAll() - To notify for all waiting threads of a particular object. 
+
+Eg: 
+obj1.wait() - 25 Threads are waiting
+obj2.wait() - 20 Threads are waiting
+
+this.notifyAll() on obj1 will notify only 25 threads. The other 20 threads waiting for obj2 will continue to wait.
+Though this.notifyAll() has notified 25 threads, exeution will be performed one by one because threads require lock and only one lock is available.
+
+NOTE: If we call obj1.wait(), Thread require lock of that particular object. We can get this lock by using synchronized(obj1). 
+      Now inside synchronized block, we cannot call obj2.wait() because we need lock of obj2 to call wait on that method
+      But how is this possible? A Thread can own multiple locks right?
+      - Of course a Thread can own multiple locks. But to call wait method, it needs to have the lock of that particular object. 

@@ -1,0 +1,12 @@
+THREADGROUP:
+------------
+Based on the functionality, we can group threads into a single unit. (i.e) A thread group contains a group of threads.
+In addition to threads, a ThreadGroup can also contain sub ThreadGroups.
+
+ADVANTAGE :- We can perform common operations very easily.
+
+Every Thread in java belongs to some ThreadGroup. Main thread belongs to main group. Every ThreadGroup in java is the child group of SystemGroup either directly or indirectly.
+Hence SystemGroup acts as root for all the ThreadGroup in java. SystemGroup contains several system level threads like Finalizer, ReferenceHandler, SignalDispatcher, AttachListner.
+
+ThreadGroup is a java class present in java.lang and its the direct child class of Object.
+

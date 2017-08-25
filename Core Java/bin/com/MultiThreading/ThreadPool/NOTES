@@ -1,0 +1,28 @@
+THREADPOOL :
+************
+Creating a new Thread for every job may create performance and memory problems. To overcome this we use ThreadPool.
+ThreadPool is a pool of already created threads ready to do our job. Java 1.5 version introduced ThreadPool Framework to implement ThreadPool.
+ThreadPool Framework is also known as Executor Framework. We can create a ThreadPool as follows
+ 
+ /**  ExecutorService s = Executors.newFixedThreadPool(3);  **/
+ 
+ We can submit a runnable job to threads in pool by using submit method as 
+ 
+ /**  s.submit(job);   **/
+ 
+ We can shutdown executor service by using shutdown method
+ 
+ /**  s.shutdown();   **/
+ 
+ NOTE:
+ While designing web/application servers, we can use ThreadPool concept. Each request will be processed by a single thread from the ThreadPool
+ 
+ CALLABLE(I) and FUTURE:
+ ***********************
+ In Runnable(I), Thread will not return anything after completing the job. 
+ If a Thread is required to return a result after execution, then we can use Callable(I)
+ 
+ Callable(I) - Contains 'call' method.
+ 				/** public Object call() throws Exception **/
+ 				If we submit callable Object to Executor, then after completing the job, Thread returns an object of type FUTURE.
+ 				(i.e) FUTURE object can be used to retrive the result from Callable job.

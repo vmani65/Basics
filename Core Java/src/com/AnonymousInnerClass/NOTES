@@ -1,0 +1,14 @@
+Anonymous Inner Class - Just for instant use (One time usage). They are like local classes but with no name.
+
+-----------
+THREE TYPES
+-----------
+ - Anonymous Inner Class that extends a Class
+ - Anonymous Inner Class that implements an Interface
+ - Anonymous Inner Class that are defined inside arguments
+
+How many .class files will be generated?
+ - If multiple inner class are defined, then multiple .class files in the following format will be created
+    DriverClass$1
+    USATour.class
+	DriverClass$2    

@@ -1,0 +1,25 @@
+1. What is synchronized keyword? Where we can apply?
+   synchronized is used to stop multiple thread access. We can apply sync. keyword on methods and code block.
+2. Explain advantage of synchronized keyword.
+   - Resolve data inconsistency problems
+3. Disadvantages of synchronized keyword?
+   - Increases waiting time of thread and creates performance problems
+4. What is Race Condition?
+   - If multiple threads are operating simultaneously on same Java Object, there is a possibility of data inconsistency.
+     We can resolve this issue by using synchronized modifier. 
+5. What is object lock and when it is required?
+6. What is class level lock and when it is required?
+7. Difference between class level lock and object level lock?   
+8. While a thread executing sync method on the given object, is the remaining threads are allowed to execute any 
+   other synchronized simultaneously on the same object?
+   - No. 
+9. What is synchronized block?
+10. How to declare synchronized block to get lock of current object?
+    - synchronized(this)
+11. How to declare synchronized block to get Class level lock?       
+12. What is the advantage of synchronized block over synchronized method?
+13. Can a thread acquire multiple lock simultaneously?
+    - It is possible.
+14. What is synchronized statements?   
+    - The statements present in synchronized methods and synchronized block are called synchronized statements.   
+ 

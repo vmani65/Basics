@@ -1,0 +1,68 @@
+List of commands to understand GIT better 
+*****************************************
+
+For the first time setup:
+
+git version = Displays the version that is currently installed
+
+git config --global user.name "--put user name here--" = Create a user name that will be used to work on the code.
+git config --global user.email "-- put email here --"  = Creates email address that will be used for the user
+
+git config --list = Displays the list of configurations that are currently being used.
+
+Creating a first project:
+
+git init = This will create a .git file at the the current location. This .git is a hidden file that tracks the changes done by us.
+
+ls -la = Lists all the files in the current repository along with the details. Remember, this will not give the details about the files that are being tracked. It plainly lists all the files.
+
+git status = Returns the status of the files that are being tracked at the current folder location.
+
+touch .gitignore = Creates a file with this extension in the base repository. Inside the file, 
+add the list of files or the file extensions that we don't want to track in the following format.
+.doc
+.pptx
+*.sez
+
+This command will untrack all the files/extensions that are specified inside .gitignore file.
+NOTE: Make sure to track .gitignore file. This fill be used by git to understand what files needs to be excluded.
+
+
+git add "fileName" = This command will track the file. It will be added to the staging area.  
+git add -A = This will add all the files in the current folder location to staging area where it will be tracked.
+
+git reset "fileName" = This will remove the specific file from the STAGING AREA. EG: git reset ../Java8/src/Test.java
+git reset = This will remove all the files from the staging area.
+
+git commit = Dangerous. Don't try to commit a file without using comment. Use this instead
+git commit -m "First Commit" = This will commit the code. Remember this will not push the code !!
+
+git log = Will show the log of the users
+
+To push this code to the remote repository:
+
+git push = Pushes the code to remote repository
+
+TO CLONE FROM REMOTE REPOSITORY:
+
+git clone https://github.com/vmani65/Basics .  /*Pay attention to the . here. It mentions that we need to clone from remote to current location*/
+
+git remote -v = Lists the information about the repository
+git branch -a = Lists all the branch of this repository. Not just locally but remotely.
+
+After making the changes, do the following
+
+git diff = Will show the differnce or the code changes that we have made
+git add -A = Add the code to the staging area
+git commit -m "" = Commit the code in staging area
+
+git pull = First get the latest code from the remote repo.
+git push origin master = Push to remote repo.
+
+git branch = Shows all the available branches
+git branch dev = Creates a branch dev
+git branch test = Creates a branch test
+
+git checkout dev = This will move our control to dev branch. Remember, we only checkout a blank branch. No code inside it as of now
+
+
