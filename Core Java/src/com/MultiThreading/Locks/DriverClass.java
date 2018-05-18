@@ -15,13 +15,10 @@ public class DriverClass implements ThreadUtil{
 			}
 		};	
 		t1.start();
-		Thread t2 = new Thread(){
-			@Override
-			public void run(){
+		Runnable t2 = new Runnable(() -> {
 				Thread.currentThread().setName("T2");
 				d.m2();
-			}
-		};	
+		});	
 		t2.start();
 	}
 	
