@@ -13,3 +13,5 @@ public class Cloning implements Cloneable {
 		return (Cloning) super.clone();
 	}
 }
+
+/*Update*/
